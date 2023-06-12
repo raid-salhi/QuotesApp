@@ -13,7 +13,7 @@ interface QuoteDataBaseDao {
     @Query("SELECT * from q_tbl")
     fun getAllSavedQuotes(): Flow<List<QuoteItem>>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addSavedQuote(quoteItem: QuoteItem)
+    suspend fun addSavedQuote(quoteItem: QuoteItem)
     @Delete
-    fun deleteSavedQuote(quoteItem: QuoteItem)
+    suspend fun deleteSavedQuote(quoteItem: QuoteItem)
 }
