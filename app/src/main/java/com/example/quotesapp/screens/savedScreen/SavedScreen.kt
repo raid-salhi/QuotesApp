@@ -1,20 +1,16 @@
 package com.example.quotesapp.screens.savedScreen
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.DismissDirection
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.SwipeToDismiss
@@ -23,19 +19,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.quotesapp.R
 import com.example.quotesapp.model.QuoteItem
 import com.example.quotesapp.widgets.CustomtopBar
+import com.example.quotesapp.widgets.NothingToShow
 import com.example.quotesapp.widgets.QuoteCard
+import com.example.quotesapp.widgets.SwipeableBackground
 
 @Composable
 fun SavedScreen(navController: NavController, savedScreenViewModel: SavedScreenViewModel = hiltViewModel()){
@@ -62,12 +54,7 @@ fun SavedScreenContent(savedScreenViewModel: SavedScreenViewModel, it: PaddingVa
     }
 }
 
-@Composable
-fun NothingToShow() {
-    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
-        Image(imageVector = ImageVector.vectorResource(id = R.drawable.empty), contentDescription = "empty")
-    }
-}
+
 
 @Composable
 fun Content(listQuoteItem: List<QuoteItem>,savedScreenViewModel: SavedScreenViewModel) {
@@ -111,15 +98,4 @@ fun SwipeableQuoteCard(quoteItem: QuoteItem,savedScreenViewModel: SavedScreenVie
         dismissContent = { QuoteCard(quoteItem = quoteItem,isMainScreen = false)}
     )
 }
-@Composable
-fun SwipeableBackground(){
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(20.dp)
-        .clip(shape = RoundedCornerShape(20.dp))
-        .background(Color.Red.copy(alpha = 0.5f)),
-        contentAlignment = Alignment.CenterStart
-    ){
-        Icon(painter = painterResource(id = R.drawable.delete), contentDescription = "delete")
-    }
-}
+
