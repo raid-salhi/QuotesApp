@@ -22,15 +22,15 @@ class SavedScreenViewModel @Inject constructor(private val databaseRepository: D
                 _data.value=it
             }
         }
-        fun addQuote(quoteItem: QuoteItem) {
-            viewModelScope.launch {
-                databaseRepository.addSavedQuote(quoteItem)
-            }
+    }
+    fun addQuote(quoteItem: QuoteItem) {
+        viewModelScope.launch {
+            databaseRepository.addSavedQuote(quoteItem)
         }
-        fun deleteQuote(quoteItem: QuoteItem) {
-            viewModelScope.launch {
-                databaseRepository.deleteSavedQuote(quoteItem)
-            }
+    }
+    fun deleteQuote(quoteItem: QuoteItem) {
+        viewModelScope.launch {
+            databaseRepository.deleteSavedQuote(quoteItem)
         }
     }
 }

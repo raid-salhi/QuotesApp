@@ -1,5 +1,6 @@
 package com.example.quotesapp.screens.mainSceen
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,57 +28,45 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quotesapp.R
 import com.example.quotesapp.model.Quote
 import com.example.quotesapp.model.QuoteItem
+import com.example.quotesapp.navigaion.ScreensRoute
+import com.example.quotesapp.screens.savedScreen.SavedScreenViewModel
+import com.example.quotesapp.widgets.CustomtopBar
+import com.example.quotesapp.widgets.QuoteCard
 
 @Composable
-fun MainScreen(navController: NavController,mainScreenViewmodel: MainScreenViewmodel = hiltViewModel()){
+fun MainScreen(
+    navController: NavController,
+    mainScreenViewmodel: MainScreenViewmodel = hiltViewModel(),
+    savedScreenViewModel: SavedScreenViewModel= hiltViewModel()
+){
     Scaffold(
         topBar = {
-            CustomtopBar(title = "Quizzy")
+            CustomtopBar(title = "Quotty")
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {  }, shape = RoundedCornerShape(16.dp), modifier = Modifier.padding(bottom = 20.dp, end = 15.dp)) {
+            FloatingActionButton(onClick = { navController.navigate(ScreensRoute.SavedScreen.name) }, shape = RoundedCornerShape(16.dp), modifier = Modifier.padding(bottom = 20.dp, end = 15.dp)) {
                 Icon(imageVector = Icons.Rounded.Favorite, contentDescription = null)
             }
         },
         floatingActionButtonPosition = FabPosition.End
     ) {
-        MainContent(mainScreenViewmodel,it)
+        MainContent(mainScreenViewmodel,it,savedScreenViewModel)
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CustomtopBar(
-    isMainScreen : Boolean = true,
-    title : String,
-    onAction : () -> Unit ={}
-) {
-    CenterAlignedTopAppBar(
-        title = {
-                Text(
-                    text = title,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colors.secondary,
-            navigationIconContentColor = Color.White,
-            titleContentColor = Color.White,
-            actionIconContentColor = Color.White
-        )
-    )
 
-}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MainContent(mainScreenViewmodel: MainScreenViewmodel,it: PaddingValues) {
+fun MainContent(mainScreenViewmodel: MainScreenViewmodel,it: PaddingValues,savedScreenViewModel: SavedScreenViewModel) {
     val list =mainScreenViewmodel.data.value
-    val pagerState= rememberPagerState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
@@ -94,70 +83,31 @@ fun MainContent(mainScreenViewmodel: MainScreenViewmodel,it: PaddingValues) {
         )
         Spacer(modifier = Modifier.height(120.dp))
 
-        if (list.isNotEmpty()){
-            QuoteSwipeable(list)
-        }
-
+        if (list.isEmpty()) ShowLottieAnimation()
+        else QuoteSwipeable(list,savedScreenViewModel)
 
     }
 }
 
+@Composable
+fun ShowLottieAnimation() {
+    val composition = rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.lottie1))
+    LottieAnimation(composition = composition.value, iterations = LottieConstants.IterateForever)
+}
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun QuoteSwipeable(list: Quote) {
+fun QuoteSwipeable(list: Quote,savedScreenViewModel: SavedScreenViewModel) {
     val pagerState= rememberPagerState()
     HorizontalPager(
         pageCount = list.size,
         state = pagerState,
         key = {list[it].c}
     ) { index ->
-        QuoteCard(quoteItem = list[index])
-    }
-}
-
-@Composable
-fun QuoteCard(quoteItem: QuoteItem) {
-    Surface(
-        shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colors.secondary,
-        elevation = 10.dp,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(20.dp)
-    ) {
-        Column(horizontalAlignment = Alignment.Start, modifier = Modifier
-            .fillMaxWidth()
-            .padding(20.dp)) {
-            Text(
-                text = "❝",
-                style = MaterialTheme.typography.h2,
-                modifier = Modifier.padding(bottom = 15.dp)
-            )
-            Text(
-                text = quoteItem.q,
-                style = MaterialTheme.typography.h5,
-                fontFamily = FontFamily(listOf(Font(R.font.unna))),
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(bottom = 10.dp)
-            )
-            Text(
-                text = "-"+quoteItem.a,
-                style = MaterialTheme.typography.caption,
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(end = 15.dp, bottom = 15.dp)
-            )
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                IconButton(onClick = {  }) {
-                    Icon(imageVector = Icons.Rounded.AddCircle, contentDescription = "add")
-                }
-                Text(
-                    text = "❞",
-                    style = MaterialTheme.typography.h2,
-                )
-            }
+        QuoteCard(quoteItem = list[index], isMainScreen = true){
+            savedScreenViewModel.addQuote(it)
 
         }
     }
 }
+
