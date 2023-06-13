@@ -20,6 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -51,9 +53,14 @@ fun MainScreen(
             CustomtopBar(title = "Quotty")
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { navController.navigate(ScreensRoute.SavedScreen.name) }, shape = RoundedCornerShape(16.dp), modifier = Modifier.padding(bottom = 20.dp, end = 15.dp)) {
-                Icon(imageVector = Icons.Rounded.Favorite, contentDescription = null)
-            }
+            ExtendedFloatingActionButton(
+                text = { Text(text = "Saved Quotes")},
+                onClick = { navController.navigate(ScreensRoute.SavedScreen.name)  },
+                icon={
+                        Icon(imageVector = ImageVector.vectorResource(id = R.drawable.saved), contentDescription = null, modifier = Modifier.size(25.dp))
+                },
+                modifier = Modifier.padding(bottom = 20.dp, end = 15.dp)
+            )
         },
         floatingActionButtonPosition = FabPosition.End
     ) {
