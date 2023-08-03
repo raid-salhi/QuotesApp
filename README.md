@@ -17,9 +17,12 @@ Quotes App Made with compose
 - Freepik
 ## Screenshots
 
+<img src="https://github.com/raid-salhi/QuotesApp/assets/118809948/014a7eb3-56f9-4a85-bcb9-2285250b223a" width="250"/>
 
-<img src="https://github.com/raid-salhi/QuotesApp/assets/118809948/8176e4d1-cfbc-4d28-962c-5461b398e235" width="250"/>
-<img src="https://github.com/raid-salhi/QuotesApp/assets/118809948/57e04b4e-fc39-4383-9779-b45cc26cfb51" width="250"/>
-<img src="https://github.com/raid-salhi/QuotesApp/assets/118809948/2f45f233-4f2c-441c-acb8-68a23b5a49d0" width="250"/>
-<img src="https://github.com/raid-salhi/QuotesApp/assets/118809948/14ae18d2-bc02-4802-a02b-c6157bbb0886" width="250"/>
-<img src="https://github.com/raid-salhi/QuotesApp/assets/118809948/6ed23dfd-de26-4217-92c7-d8d0e16f53e5" width="250"/>
+<img src="https://github.com/raid-salhi/QuotesApp/assets/118809948/6b99e81d-2086-4f3c-bd05-fc8e4c036bb7" width="250"/>
+
+<img src="https://github.com/raid-salhi/QuotesApp/assets/118809948/307a2e79-af0f-49a7-a746-6fe49458fe0f" width="250"/>
+
+<img src="https://github.com/raid-salhi/QuotesApp/assets/118809948/2587397d-2ba8-4ee6-8a91-d2b180420c0a" width="250"/>
+
+<img src="https://github.com/raid-salhi/QuotesApp/assets/118809948/8aeb8626-7ece-40cc-984c-0d8e3a616dc0" width="250"/>
